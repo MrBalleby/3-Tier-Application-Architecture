@@ -1,0 +1,2 @@
+C:\Users\mbal\source\repos\3-Tier-Application-Architecture\ConsoleApplication\ConsoleApplication\obj\Debug\ConsoleApplication.csprojAssemblyReference.cache
+C:\Users\mbal\source\repos\3-Tier-Application-Architecture\ConsoleApplication\ConsoleApplication\obj\Debug\ConsoleApplication.csproj.CoreCompileInputs.cache
