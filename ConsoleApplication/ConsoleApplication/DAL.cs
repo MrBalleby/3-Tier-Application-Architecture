@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DA_Layer
 {
-    public class Dal : ICostumer, ICostumer_Customergroup, ICustomerAddress, ICustomerGroup, IEvents, IEvents_ConcertHall, IEvents_Customergroup, IEventTickets_TicketSold, IConcertHall
+    public class Dal : ICustumer, ICustumer_Customergroup, ICustomerAddress, ICustomerGroup, IEvents, IEvents_ConcertHall, IEvents_Customergroup, IEventTickets_TicketSold, IConcertHall
     {
         private string conn = ConfigurationManager.ConnectionStrings["CON"].ToString();
 
@@ -189,14 +189,14 @@ namespace DA_Layer
 
 
 
-        public void AddEventsDB(string eventName, DateTime eventDate, int grouptype, string custtype)
+        public void AddEventsDB(string eventName, DateTime eventDate, string grouptype, string custtype)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.Events_ (eventName, eventDate, grouptype, custtype) VALUES ('" + eventName + "','" + eventDate + "','" + grouptype + "','" + custtype + "')";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void UpdateEventsDB(int id, string eventName, DateTime eventDate, int grouptype, string custtype)
+        public void UpdateEventsDB(int id, string eventName, DateTime eventDate, string grouptype, string custtype)
         {
             DataSet ds = new DataSet();
             string sql = "Update dbo.Events_ set id='" + id + "',eventName = '" + eventName + "',eventDate= '" + eventDate + "',grouptype = '" + grouptype + "',custtype = '" + custtype + "' Where id = '" + id + "' ";
@@ -220,14 +220,14 @@ namespace DA_Layer
         }
 
 
-        public void AddCustomerGroupDB(string Gname, int grouptype, string custtype, int ticketId)
+        public void AddCustomerGroupDB(string Gname, string grouptype, string custtype, int ticketId)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.CustomerGroup (name, grouptype, custtype, ticketId) VALUES ('" + Gname + "','" + grouptype + "'','" + custtype + "','" + ticketId + "')";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void UpdateCustomerGroupDB(int id, string Gname, int grouptype, string custtype, int ticketId)
+        public void UpdateCustomerGroupDB(int id, string Gname, string grouptype, string custtype, int ticketId)
         {
             DataSet ds = new DataSet();
             string sql = "Update dbo.CustomerGroup set id='" + id + "',name = '" + Gname + "',grouptype= '" + grouptype + "',custtype = '" + custtype + "',ticketId = '" + ticketId + "' Where id = '" + id + "' ";
@@ -250,7 +250,7 @@ namespace DA_Layer
             return ds;
         }
 
-        public void AddCostumerDB(string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
+        public void AddCustumerDB(string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.Customer (firstname,surname,age,mail,phone,customerGroupId,AddressId) VALUES ('" + firstname + "','" + surname + "','" + age + "','" + mail + "','" + phone + "','" + customerGroupId + "','" + AddressId + "')";
@@ -278,7 +278,7 @@ namespace DA_Layer
             ds = (DataSet)ExecuteSqlString(sql);
             return ds;
         }
-        public void AddCostumer_CustomergroupDB(int custId, string custName, string custMail, string groupName, int ticketId)
+        public void AddCustumer_CustomergroupDB(int custId, string custName, string custMail, string groupName, int ticketId)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.Customer_Customergroup (custId,custName,custMail,groupName,ticketId) VALUES ('" + custId + "','" + custName + "','" + custMail + "','" + groupName + "','" + ticketId + "')";
@@ -308,31 +308,31 @@ namespace DA_Layer
             return ds;
         }
 
-        public void AddCostumerAddressDB(string street, int number, string city, int zip)
+        public void AddCustumerAddressDB(string street, int number, string city, int zip)
         {
             DataSet ds = new DataSet();
-            string sql = "INSERT into dbo.CostumerAddress (street,number,city,zip) VALUES ('" + street + "','" + number + "','" + city + "','" + zip + "')";
+            string sql = "INSERT into dbo.CustumerAddress (street,number,city,zip) VALUES ('" + street + "','" + number + "','" + city + "','" + zip + "')";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void UpdateCostumerAddressDB(int id, string street, int number, string city, int zip)
+        public void UpdateCustumerAddressDB(int id, string street, int number, string city, int zip)
         {
             DataSet ds = new DataSet();
-            string sql = "Update dbo.CostumerAddress set id='" + id + "', street='" + street + "', number='" + number + "', city='" + city + "', zip='" + zip + "', Where id = '" + id + "' ";
+            string sql = "Update dbo.CustumerAddress set id='" + id + "', street='" + street + "', number='" + number + "', city='" + city + "', zip='" + zip + "', Where id = '" + id + "' ";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void DeleteCostumerAddressDB(int id)
+        public void DeleteCustumerAddressDB(int id)
         {
             DataSet ds = new DataSet();
-            string sql = "Delete From dbo.CostumerAddress Where id = '" + id + "' ";
+            string sql = "Delete From dbo.CustumerAddress Where id = '" + id + "' ";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public object GetCostumerAddressDB()
+        public object GetCustumerAddressDB()
         {
             DataSet ds = new DataSet();
-            string sql = "SELECT * dbo.CostumerAddress order by id";
+            string sql = "SELECT * dbo.CustumerAddress order by id";
             ds = (DataSet)ExecuteSqlString(sql);
             return ds;
         }

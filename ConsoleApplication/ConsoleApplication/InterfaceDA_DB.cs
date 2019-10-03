@@ -14,7 +14,7 @@ namespace DA_Layer
         public Nullable<int> totalOfPpl { get; set; }
         public int AddressId { get; set; }
     }
-    interface ICostumer
+    interface ICustumer
     {
         public int id { get; set; }
         public string firstname { get; set; }
@@ -25,7 +25,7 @@ namespace DA_Layer
         public Nullable<int> customerGroupId { get; set; }
         public int AddressId { get; set; }
     }
-    interface ICostumer_Customergroup
+    interface ICustumer_Customergroup
     {
         public int id { get; set; }
         public Nullable<int> custId { get; set; }
