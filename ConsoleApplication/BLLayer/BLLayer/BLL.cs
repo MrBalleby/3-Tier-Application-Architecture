@@ -7,9 +7,10 @@ using DA_Layer;
 
 namespace BL_Layer
 {
-    class Bll
+    public class Bll
     {
         public Dal dal = new Dal();
+        public object x;
 
         //Custtable
         public void AddNewCustomer(string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)

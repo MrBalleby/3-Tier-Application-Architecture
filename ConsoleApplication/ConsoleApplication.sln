@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALayer", "ConsoleApplicati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLLayer", "BLLayer\BLLayer.csproj", "{1050E13B-E4DB-483F-916B-A9019000D510}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketSaleApp4RealNoVirus", "TicketSaleApp4RealNoVirus\TicketSaleApp4RealNoVirus.csproj", "{2B75EE73-DEC9-4B93-A730-57D231794B31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1050E13B-E4DB-483F-916B-A9019000D510}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1050E13B-E4DB-483F-916B-A9019000D510}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1050E13B-E4DB-483F-916B-A9019000D510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B75EE73-DEC9-4B93-A730-57D231794B31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B75EE73-DEC9-4B93-A730-57D231794B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B75EE73-DEC9-4B93-A730-57D231794B31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B75EE73-DEC9-4B93-A730-57D231794B31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

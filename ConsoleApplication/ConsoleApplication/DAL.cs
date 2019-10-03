@@ -10,8 +10,7 @@ namespace DA_Layer
 {
     public class Dal : ICustumer, ICustumer_Customergroup, ICustomerAddress, ICustomerGroup, IEvents, IEvents_ConcertHall, IEvents_Customergroup, IEventTickets_TicketSold, IConcertHall
     {
-        private string conn = ConfigurationManager.ConnectionStrings["CON"].ToString();
-
+        private string conn = "Data Source=pc-r90n0q1x;Initial Catalog=CoreApplication;Integrated Security=True";
         public int id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string firstname { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string surname { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -53,11 +52,11 @@ namespace DA_Layer
         {
             SqlConnection con = new SqlConnection(conn);
             con.Open();
-            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand(sqlstring, con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(ds);
-            return ds;
+            da.Fill(dt);
+            return dt;
         }
 
 
@@ -273,10 +272,10 @@ namespace DA_Layer
 
         public object GetCustomerDB()
         {
-            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
             string sql = "SELECT * from dbo.Customer order by id";
-            ds = (DataSet)ExecuteSqlString(sql);
-            return ds;
+            dt = (DataTable)ExecuteSqlString(sql);
+            return dt;
         }
         public void AddCustumer_CustomergroupDB(int custId, string custName, string custMail, string groupName, int ticketId)
         {
