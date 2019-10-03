@@ -250,21 +250,21 @@ namespace DA_Layer
             return ds;
         }
 
-        public void AddCostumerDB(string firstname, string surname, string age, string mail, string phone, int customerGroupId, int AddressId)
+        public void AddCostumerDB(string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.Customer (firstname,surname,age,mail,phone,customerGroupId,AddressId) VALUES ('" + firstname + "','" + surname + "','" + age + "','" + mail + "','" + phone + "','" + customerGroupId + "','" + AddressId + "')";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void UpdateCustomerDB(int id, string firstname, string surname, string age, string mail, string phone, int customerGroupId, int AddressId)
+        public void UpdateCustomerDB(int id, string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
         {
             DataSet ds = new DataSet();
             string sql = "Update dbo.Customer set id='" + id + "', firstname='" + firstname + "', surname='" + surname + "', age='" + age + "', mail='" + mail + "', phone='" + phone + "', customerGroupId='" + customerGroupId + "', AddressId='" + AddressId + "', Where id = '" + id + "' ";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void DeleteCustomerDB(int id)
+        public void DeleteCustomerAddressDB(int id)
         {
             DataSet ds = new DataSet();
             string sql = "Delete From dbo.Customer Where id = '" + id + "' ";
@@ -308,14 +308,14 @@ namespace DA_Layer
             return ds;
         }
 
-        public void AddCostumerAddressDB(string street, string number, string city, int zip)
+        public void AddCostumerAddressDB(string street, int number, string city, int zip)
         {
             DataSet ds = new DataSet();
             string sql = "INSERT into dbo.CostumerAddress (street,number,city,zip) VALUES ('" + street + "','" + number + "','" + city + "','" + zip + "')";
             InsertUpdateDeleteSQLString(sql);
         }
 
-        public void UpdateCostumerAddressDB(int id, string street, string number, string city, int zip)
+        public void UpdateCostumerAddressDB(int id, string street, int number, string city, int zip)
         {
             DataSet ds = new DataSet();
             string sql = "Update dbo.CostumerAddress set id='" + id + "', street='" + street + "', number='" + number + "', city='" + city + "', zip='" + zip + "', Where id = '" + id + "' ";
