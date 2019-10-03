@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication
+namespace DA_Layer
 {
-    class DAL
+    public class Dal
     {
         private string conn = ConfigurationManager.ConnectionStrings["CON"].ToString();
 
@@ -32,5 +32,7 @@ namespace ConsoleApplication
             da.Fill(ds);
             return ds;
         }
+
+
     }
 }

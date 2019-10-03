@@ -88,7 +88,7 @@
     <Compile Include="Customer_Customergroup.cs">
       <DependentUpon>CoreApplicationDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL.cs" />
+    <Compile Include="Dal.cs" />
     <Compile Include="Events_.cs">
       <DependentUpon>CoreApplicationDM.tt</DependentUpon>
     </Compile>
