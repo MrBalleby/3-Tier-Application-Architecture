@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsoleApplication
+namespace DA_Layer
 {
     using System;
     

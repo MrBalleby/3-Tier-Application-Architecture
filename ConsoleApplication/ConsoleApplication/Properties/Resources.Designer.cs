@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsoleApplication.Properties
+namespace DA_Layer.Properties
 {
 
 

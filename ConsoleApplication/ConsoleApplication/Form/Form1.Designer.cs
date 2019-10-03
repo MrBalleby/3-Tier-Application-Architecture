@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication
+﻿namespace DA_Layer
 {
     partial class Form1
     {
