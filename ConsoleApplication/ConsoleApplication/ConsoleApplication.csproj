@@ -33,8 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,14 +56,114 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="ConcertHall.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoreApplicationDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoreApplicationDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoreApplicationDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoreApplicationDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoreApplicationDM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerAddress.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerGroup.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer_Customergroup.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL.cs" />
+    <Compile Include="Events_.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Events_ConcertHall.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Events_Customergroup.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventTickets_TicketsSold.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Form\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Form\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sproc_GetConcertHallDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetConcertHall_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomerAddresDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomerAddress_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomerDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomerGroupDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomerGroup_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomer_CustomergroupDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomer_Customergroup_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetCustomer_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents_ConcertHallDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents_ConcertHall_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents_CustomergroupDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents_Customergroup_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents_Details_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEvents__Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEventTickets_TicketsSoldDetails_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sproc_GetEventTickets_TicketsSold_Result.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>CoreApplicationDM.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +173,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="CoreApplicationDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CoreApplicationDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CoreApplicationDM.edmx.diagram">
+      <DependentUpon>CoreApplicationDM.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -75,6 +193,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CoreApplicationDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CoreApplicationDM.Context.cs</LastGenOutput>
+      <DependentUpon>CoreApplicationDM.edmx</DependentUpon>
+    </Content>
+    <Content Include="CoreApplicationDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CoreApplicationDM.edmx</DependentUpon>
+      <LastGenOutput>CoreApplicationDM.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

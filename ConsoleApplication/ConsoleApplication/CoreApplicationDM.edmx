@@ -1,0 +1,1307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoreApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ConcertHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="ticketType" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="totalOfPpl" Type="int" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" />
+          <Property Name="surname" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="mail" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="int" />
+          <Property Name="customerGroupId" Type="int" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer_Customergroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="custId" Type="int" />
+          <Property Name="custName" Type="varchar" MaxLength="50" />
+          <Property Name="custMail" Type="varchar" MaxLength="50" />
+          <Property Name="groupName" Type="varchar" MaxLength="50" />
+          <Property Name="ticketId" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="50" />
+          <Property Name="number" Type="int" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="zip" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="grouptype" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="custtype" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ticketId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventName" Type="varchar" MaxLength="50" />
+          <Property Name="eventDate" Type="datetime" />
+          <Property Name="grouptype" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="custtype" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_ConcertHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventName" Type="varchar" MaxLength="50" />
+          <Property Name="eventDate" Type="datetime" />
+          <Property Name="totalOfPpl" Type="int" />
+          <Property Name="ticketType" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_Customergroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventName" Type="varchar" MaxLength="50" />
+          <Property Name="groupName" Type="varchar" MaxLength="50" />
+          <Property Name="groupId" Type="int" />
+          <Property Name="ticketId" Type="int" />
+        </EntityType>
+        <EntityType Name="EventTickets_TicketsSold">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventname" Type="varchar" MaxLength="50" />
+          <Property Name="eventDate" Type="datetime" />
+          <Property Name="groupId" Type="int" />
+          <Property Name="ticketId" Type="int" />
+          <Property Name="custtype" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ticketType" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ConcertHall_CustomerAddress">
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="1" />
+          <End Role="ConcertHall" Type="Self.ConcertHall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerAddress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConcertHall">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_CustoemrAddress">
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerAddress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_DeleteConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteCustomer_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteCustomerAddres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteCustomerGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteEvents_" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteEvents_ConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteEvents_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DeleteEventTickets_TicketsSold" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetConcertHallDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetCustomer_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetCustomer_CustomergroupDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetCustomerAddresDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetCustomerAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetCustomerDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetCustomerGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetCustomerGroupDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetEvents_" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetEvents_ConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetEvents_ConcertHallDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetEvents_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetEvents_CustomergroupDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetEvents_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_GetEventTickets_TicketsSold" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sproc_GetEventTickets_TicketsSoldDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_InsertConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="totalOfPpl" Type="int" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="surname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="phone" Type="int" Mode="In" />
+          <Parameter Name="customerGroupId" Type="int" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertCustomer_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="custId" Type="int" Mode="In" />
+          <Parameter Name="custName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custMail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertCustomerAddres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="street" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="number" Type="int" Mode="In" />
+          <Parameter Name="city" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="zip" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertCustomerGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="grouptype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertEvents_" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="grouptype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertEvents_ConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="totalOfPpl" Type="int" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertEvents_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_InsertEventTickets_TicketsSold" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eventname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sproc_UpdateConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="totalOfPpl" Type="int" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="firstname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="surname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="phone" Type="int" Mode="In" />
+          <Parameter Name="customerGroupId" Type="int" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateCustomer_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="custId" Type="int" Mode="In" />
+          <Parameter Name="custName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custMail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateCustomerAddres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="street" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="number" Type="int" Mode="In" />
+          <Parameter Name="city" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="zip" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateCustomerGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="grouptype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateEvents_" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="grouptype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateEvents_ConcertHall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="totalOfPpl" Type="int" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateEvents_Customergroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="eventName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_UpdateEventTickets_TicketsSold" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="eventname" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="eventDate" Type="datetime" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="ticketId" Type="int" Mode="In" />
+          <Parameter Name="custtype" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ticketType" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="CoreApplicationModelStoreContainer">
+          <EntitySet Name="ConcertHall" EntityType="Self.ConcertHall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_Customergroup" EntityType="Self.Customer_Customergroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerGroup" EntityType="Self.CustomerGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_" EntityType="Self.Events_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_ConcertHall" EntityType="Self.Events_ConcertHall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_Customergroup" EntityType="Self.Events_Customergroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTickets_TicketsSold" EntityType="Self.EventTickets_TicketsSold" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ConcertHall_CustomerAddress" Association="Self.FK_ConcertHall_CustomerAddress">
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+            <End Role="ConcertHall" EntitySet="ConcertHall" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_CustoemrAddress" Association="Self.FK_Customer_CustoemrAddress">
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoreApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ConcertHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ticketType" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="totalOfPpl" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerAddress" Relationship="Self.FK_ConcertHall_CustomerAddress" FromRole="ConcertHall" ToRole="CustomerAddress" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="customerGroupId" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerAddress" Relationship="Self.FK_Customer_CustoemrAddress" FromRole="Customer" ToRole="CustomerAddress" />
+        </EntityType>
+        <EntityType Name="Customer_Customergroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="custId" Type="Int32" />
+          <Property Name="custName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="custMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ticketId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="number" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="Int32" />
+          <NavigationProperty Name="ConcertHalls" Relationship="Self.FK_ConcertHall_CustomerAddress" FromRole="CustomerAddress" ToRole="ConcertHall" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_CustoemrAddress" FromRole="CustomerAddress" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="CustomerGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="grouptype" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custtype" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ticketId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eventDate" Type="DateTime" Precision="3" />
+          <Property Name="grouptype" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custtype" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_ConcertHall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eventDate" Type="DateTime" Precision="3" />
+          <Property Name="totalOfPpl" Type="Int32" />
+          <Property Name="ticketType" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events_Customergroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="groupId" Type="Int32" />
+          <Property Name="ticketId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EventTickets_TicketsSold">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eventDate" Type="DateTime" Precision="3" />
+          <Property Name="groupId" Type="Int32" />
+          <Property Name="ticketId" Type="Int32" />
+          <Property Name="custtype" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ticketType" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_ConcertHall_CustomerAddress">
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="1" />
+          <End Role="ConcertHall" Type="Self.ConcertHall" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerAddress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConcertHall">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_CustoemrAddress">
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerAddress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoreApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConcertHalls" EntityType="Self.ConcertHall" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Customer_Customergroup" EntityType="Self.Customer_Customergroup" />
+          <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddress" />
+          <EntitySet Name="CustomerGroups" EntityType="Self.CustomerGroup" />
+          <EntitySet Name="Events_" EntityType="Self.Events_" />
+          <EntitySet Name="Events_ConcertHall" EntityType="Self.Events_ConcertHall" />
+          <EntitySet Name="Events_Customergroup" EntityType="Self.Events_Customergroup" />
+          <EntitySet Name="EventTickets_TicketsSold" EntityType="Self.EventTickets_TicketsSold" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_ConcertHall_CustomerAddress" Association="Self.FK_ConcertHall_CustomerAddress">
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+            <End Role="ConcertHall" EntitySet="ConcertHalls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_CustoemrAddress" Association="Self.FK_Customer_CustoemrAddress">
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="sproc_DeleteConcertHall">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteCustomer">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteCustomer_Customergroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteCustomerAddres">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteCustomerGroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteEvents_">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteEvents_ConcertHall">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteEvents_Customergroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DeleteEventTickets_TicketsSold">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetConcertHall" ReturnType="Collection(CoreApplicationModel.sproc_GetConcertHall_Result)" />
+          <FunctionImport Name="sproc_GetConcertHallDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetConcertHallDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetCustomer" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomer_Result)" />
+          <FunctionImport Name="sproc_GetCustomer_Customergroup" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomer_Customergroup_Result)" />
+          <FunctionImport Name="sproc_GetCustomer_CustomergroupDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomer_CustomergroupDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetCustomerAddresDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomerAddresDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetCustomerAddress" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomerAddress_Result)" />
+          <FunctionImport Name="sproc_GetCustomerDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomerDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetCustomerGroup" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomerGroup_Result)" />
+          <FunctionImport Name="sproc_GetCustomerGroupDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetCustomerGroupDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetEvents_" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents__Result)" />
+          <FunctionImport Name="sproc_GetEvents_ConcertHall" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents_ConcertHall_Result)" />
+          <FunctionImport Name="sproc_GetEvents_ConcertHallDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents_ConcertHallDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetEvents_Customergroup" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents_Customergroup_Result)" />
+          <FunctionImport Name="sproc_GetEvents_CustomergroupDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents_CustomergroupDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetEvents_Details" ReturnType="Collection(CoreApplicationModel.sproc_GetEvents_Details_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_GetEventTickets_TicketsSold" ReturnType="Collection(CoreApplicationModel.sproc_GetEventTickets_TicketsSold_Result)" />
+          <FunctionImport Name="sproc_GetEventTickets_TicketsSoldDetails" ReturnType="Collection(CoreApplicationModel.sproc_GetEventTickets_TicketsSoldDetails_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertConcertHall">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+            <Parameter Name="totalOfPpl" Mode="In" Type="Int32" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertCustomer">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="Int32" />
+            <Parameter Name="customerGroupId" Mode="In" Type="Int32" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertCustomer_Customergroup">
+            <Parameter Name="custId" Mode="In" Type="Int32" />
+            <Parameter Name="custName" Mode="In" Type="String" />
+            <Parameter Name="custMail" Mode="In" Type="String" />
+            <Parameter Name="groupName" Mode="In" Type="String" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertCustomerAddres">
+            <Parameter Name="street" Mode="In" Type="String" />
+            <Parameter Name="number" Mode="In" Type="Int32" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertCustomerGroup">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="grouptype" Mode="In" Type="String" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertEvents_">
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="grouptype" Mode="In" Type="String" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertEvents_ConcertHall">
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="totalOfPpl" Mode="In" Type="Int32" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertEvents_Customergroup">
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="groupName" Mode="In" Type="String" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_InsertEventTickets_TicketsSold">
+            <Parameter Name="eventname" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateConcertHall">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+            <Parameter Name="totalOfPpl" Mode="In" Type="Int32" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateCustomer">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="Int32" />
+            <Parameter Name="customerGroupId" Mode="In" Type="Int32" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateCustomer_Customergroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="custId" Mode="In" Type="Int32" />
+            <Parameter Name="custName" Mode="In" Type="String" />
+            <Parameter Name="custMail" Mode="In" Type="String" />
+            <Parameter Name="groupName" Mode="In" Type="String" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateCustomerAddres">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="street" Mode="In" Type="String" />
+            <Parameter Name="number" Mode="In" Type="Int32" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateCustomerGroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="grouptype" Mode="In" Type="String" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateEvents_">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="grouptype" Mode="In" Type="String" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateEvents_ConcertHall">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="totalOfPpl" Mode="In" Type="Int32" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateEvents_Customergroup">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="eventName" Mode="In" Type="String" />
+            <Parameter Name="groupName" Mode="In" Type="String" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_UpdateEventTickets_TicketsSold">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="eventname" Mode="In" Type="String" />
+            <Parameter Name="eventDate" Mode="In" Type="DateTime" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="ticketId" Mode="In" Type="Int32" />
+            <Parameter Name="custtype" Mode="In" Type="String" />
+            <Parameter Name="ticketType" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sproc_GetConcertHall_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+          <Property Type="Int32" Name="totalOfPpl" Nullable="true" />
+          <Property Type="Int32" Name="AddressId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetConcertHallDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+          <Property Type="Int32" Name="totalOfPpl" Nullable="true" />
+          <Property Type="Int32" Name="AddressId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomer_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="surname" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="String" Name="mail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="phone" Nullable="true" />
+          <Property Type="Int32" Name="customerGroupId" Nullable="true" />
+          <Property Type="Int32" Name="AddressId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomer_Customergroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="custId" Nullable="true" />
+          <Property Type="String" Name="custName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="custMail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="groupName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomer_CustomergroupDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="custId" Nullable="true" />
+          <Property Type="String" Name="custName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="custMail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="groupName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomerAddresDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="street" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="number" Nullable="true" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="zip" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomerAddress_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="street" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="number" Nullable="true" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="zip" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomerDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="surname" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="String" Name="mail" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="phone" Nullable="true" />
+          <Property Type="Int32" Name="customerGroupId" Nullable="true" />
+          <Property Type="Int32" Name="AddressId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomerGroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="grouptype" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+          <Property Type="Int32" Name="ticketId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetCustomerGroupDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="grouptype" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+          <Property Type="Int32" Name="ticketId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents__Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="grouptype" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents_ConcertHall_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="totalOfPpl" Nullable="true" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents_ConcertHallDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="totalOfPpl" Nullable="true" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents_Customergroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="groupName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="groupId" Nullable="true" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents_CustomergroupDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="groupName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="groupId" Nullable="true" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEvents_Details_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="grouptype" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEventTickets_TicketsSold_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventname" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="groupId" Nullable="true" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="sproc_GetEventTickets_TicketsSoldDetails_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="eventname" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="eventDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="groupId" Nullable="true" />
+          <Property Type="Int32" Name="ticketId" Nullable="true" />
+          <Property Type="String" Name="custtype" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="ticketType" Nullable="false" MaxLength="8" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoreApplicationModelStoreContainer" CdmEntityContainer="CoreApplicationEntities">
+          <EntitySetMapping Name="ConcertHalls">
+            <EntityTypeMapping TypeName="CoreApplicationModel.ConcertHall">
+              <MappingFragment StoreEntitySet="ConcertHall">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CoreApplicationModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="customerGroupId" ColumnName="customerGroupId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_Customergroup">
+            <EntityTypeMapping TypeName="CoreApplicationModel.Customer_Customergroup">
+              <MappingFragment StoreEntitySet="Customer_Customergroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+                <ScalarProperty Name="custName" ColumnName="custName" />
+                <ScalarProperty Name="custMail" ColumnName="custMail" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAddresses">
+            <EntityTypeMapping TypeName="CoreApplicationModel.CustomerAddress">
+              <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerGroups">
+            <EntityTypeMapping TypeName="CoreApplicationModel.CustomerGroup">
+              <MappingFragment StoreEntitySet="CustomerGroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events_">
+            <EntityTypeMapping TypeName="CoreApplicationModel.Events_">
+              <MappingFragment StoreEntitySet="Events_">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events_ConcertHall">
+            <EntityTypeMapping TypeName="CoreApplicationModel.Events_ConcertHall">
+              <MappingFragment StoreEntitySet="Events_ConcertHall">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events_Customergroup">
+            <EntityTypeMapping TypeName="CoreApplicationModel.Events_Customergroup">
+              <MappingFragment StoreEntitySet="Events_Customergroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTickets_TicketsSold">
+            <EntityTypeMapping TypeName="CoreApplicationModel.EventTickets_TicketsSold">
+              <MappingFragment StoreEntitySet="EventTickets_TicketsSold">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventname" ColumnName="eventname" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CoreApplicationModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CoreApplicationModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CoreApplicationModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CoreApplicationModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CoreApplicationModel.Store.sp_helpdiagramdefinition" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CoreApplicationModel.Store.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CoreApplicationModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CoreApplicationModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteConcertHall" FunctionName="CoreApplicationModel.Store.sproc_DeleteConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteCustomer" FunctionName="CoreApplicationModel.Store.sproc_DeleteCustomer" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteCustomer_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_DeleteCustomer_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteCustomerAddres" FunctionName="CoreApplicationModel.Store.sproc_DeleteCustomerAddres" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteCustomerGroup" FunctionName="CoreApplicationModel.Store.sproc_DeleteCustomerGroup" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteEvents_" FunctionName="CoreApplicationModel.Store.sproc_DeleteEvents_" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteEvents_ConcertHall" FunctionName="CoreApplicationModel.Store.sproc_DeleteEvents_ConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteEvents_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_DeleteEvents_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_DeleteEventTickets_TicketsSold" FunctionName="CoreApplicationModel.Store.sproc_DeleteEventTickets_TicketsSold" />
+          <FunctionImportMapping FunctionImportName="sproc_GetConcertHall" FunctionName="CoreApplicationModel.Store.sproc_GetConcertHall">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetConcertHall_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetConcertHallDetails" FunctionName="CoreApplicationModel.Store.sproc_GetConcertHallDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetConcertHallDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomer" FunctionName="CoreApplicationModel.Store.sproc_GetCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomer_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="customerGroupId" ColumnName="customerGroupId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomer_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_GetCustomer_Customergroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomer_Customergroup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+                <ScalarProperty Name="custName" ColumnName="custName" />
+                <ScalarProperty Name="custMail" ColumnName="custMail" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomer_CustomergroupDetails" FunctionName="CoreApplicationModel.Store.sproc_GetCustomer_CustomergroupDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomer_CustomergroupDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+                <ScalarProperty Name="custName" ColumnName="custName" />
+                <ScalarProperty Name="custMail" ColumnName="custMail" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomerAddresDetails" FunctionName="CoreApplicationModel.Store.sproc_GetCustomerAddresDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomerAddresDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomerAddress" FunctionName="CoreApplicationModel.Store.sproc_GetCustomerAddress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomerAddress_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomerDetails" FunctionName="CoreApplicationModel.Store.sproc_GetCustomerDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomerDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="customerGroupId" ColumnName="customerGroupId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomerGroup" FunctionName="CoreApplicationModel.Store.sproc_GetCustomerGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomerGroup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetCustomerGroupDetails" FunctionName="CoreApplicationModel.Store.sproc_GetCustomerGroupDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetCustomerGroupDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents__Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_ConcertHall" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_ConcertHall">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents_ConcertHall_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_ConcertHallDetails" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_ConcertHallDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents_ConcertHallDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="totalOfPpl" ColumnName="totalOfPpl" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_Customergroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents_Customergroup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_CustomergroupDetails" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_CustomergroupDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents_CustomergroupDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEvents_Details" FunctionName="CoreApplicationModel.Store.sproc_GetEvents_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEvents_Details_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventName" ColumnName="eventName" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEventTickets_TicketsSold" FunctionName="CoreApplicationModel.Store.sproc_GetEventTickets_TicketsSold">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEventTickets_TicketsSold_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventname" ColumnName="eventname" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_GetEventTickets_TicketsSoldDetails" FunctionName="CoreApplicationModel.Store.sproc_GetEventTickets_TicketsSoldDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CoreApplicationModel.sproc_GetEventTickets_TicketsSoldDetails_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="eventname" ColumnName="eventname" />
+                <ScalarProperty Name="eventDate" ColumnName="eventDate" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="ticketId" ColumnName="ticketId" />
+                <ScalarProperty Name="custtype" ColumnName="custtype" />
+                <ScalarProperty Name="ticketType" ColumnName="ticketType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_InsertConcertHall" FunctionName="CoreApplicationModel.Store.sproc_InsertConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertCustomer" FunctionName="CoreApplicationModel.Store.sproc_InsertCustomer" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertCustomer_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_InsertCustomer_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertCustomerAddres" FunctionName="CoreApplicationModel.Store.sproc_InsertCustomerAddres" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertCustomerGroup" FunctionName="CoreApplicationModel.Store.sproc_InsertCustomerGroup" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertEvents_" FunctionName="CoreApplicationModel.Store.sproc_InsertEvents_" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertEvents_ConcertHall" FunctionName="CoreApplicationModel.Store.sproc_InsertEvents_ConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertEvents_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_InsertEvents_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_InsertEventTickets_TicketsSold" FunctionName="CoreApplicationModel.Store.sproc_InsertEventTickets_TicketsSold" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateConcertHall" FunctionName="CoreApplicationModel.Store.sproc_UpdateConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateCustomer" FunctionName="CoreApplicationModel.Store.sproc_UpdateCustomer" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateCustomer_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_UpdateCustomer_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateCustomerAddres" FunctionName="CoreApplicationModel.Store.sproc_UpdateCustomerAddres" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateCustomerGroup" FunctionName="CoreApplicationModel.Store.sproc_UpdateCustomerGroup" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateEvents_" FunctionName="CoreApplicationModel.Store.sproc_UpdateEvents_" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateEvents_ConcertHall" FunctionName="CoreApplicationModel.Store.sproc_UpdateEvents_ConcertHall" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateEvents_Customergroup" FunctionName="CoreApplicationModel.Store.sproc_UpdateEvents_Customergroup" />
+          <FunctionImportMapping FunctionImportName="sproc_UpdateEventTickets_TicketsSold" FunctionName="CoreApplicationModel.Store.sproc_UpdateEventTickets_TicketsSold" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
