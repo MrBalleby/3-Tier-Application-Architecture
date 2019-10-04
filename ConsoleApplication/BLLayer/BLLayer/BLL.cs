@@ -15,7 +15,7 @@ namespace BL_Layer
         //Custtable
         public void AddNewCustomer(string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
         {
-            dal.AddCustumerDB(firstname, surname, age, mail, phone, customerGroupId, AddressId);
+            dal.AddCustomerDB(firstname, surname, age, mail, phone, customerGroupId, AddressId);
         }
 
         public void UpdateCustomer(int id, string firstname, string surname, int age, string mail, int phone, int customerGroupId, int AddressId)
@@ -25,7 +25,7 @@ namespace BL_Layer
 
         public void DeleteCustomer(int id)
         {
-            dal.DeleteCustomerAddressDB(id);
+            dal.DeleteCustomerDB(id);
         }
 
         public object GetCustomer()
@@ -36,12 +36,12 @@ namespace BL_Layer
         //CustAddresstable
         public void AddCustomerAddress(string street, int number, string city, int zip)
         {
-            dal.AddCustumerAddressDB(street, number, city, zip);
+            dal.AddCustomerAddressDB(street, number, city, zip);
         }
 
         public void UpdateCustomerAddress(int id, string street, int number, string city, int zip)
         {
-            dal.UpdateCustumerAddressDB(id, street, number, city, zip);
+            dal.UpdateCustomerAddressDB(id, street, number, city, zip);
         }
 
         public void DeleteCustomerAddress(int id)
@@ -51,7 +51,7 @@ namespace BL_Layer
 
         public object GetCustomerAddress()
         {
-            return dal.GetCustumerAddressDB();
+            return dal.GetCustomerAddressDB();
         }
 
         //CustGrouptable
@@ -78,7 +78,7 @@ namespace BL_Layer
         //Cust_CustGrouptable
         public void AddCustomer_CustomerGroup(int custId, string custName, string custMail, string groupName, int ticketId)
         {
-            dal.AddCustumer_CustomergroupDB(custId, custName, custMail, groupName, ticketId);
+            dal.AddCustomer_CustomergroupDB(custId, custName, custMail, groupName, ticketId);
         }
 
         public void UpdateCustomer_CustomerGroup(int id, int custId, string custName, string custMail, string groupName, int ticketId)
@@ -119,68 +119,88 @@ namespace BL_Layer
 
 
         //ConcertHalltable
-        public void AddConcertHallDB(string Cname, string ticketType, int totalOfPpl, int AddressId)
+        public void AddConcertHall(string Cname, string ticketType, int totalOfPpl, int AddressId)
         {
             dal.AddConcertHallDB(Cname, ticketType, totalOfPpl, AddressId);
         }
 
-        public void UpdatekoncertHallDB(int id, string Cname, string ticketType, int totalOfPpl, int AddressId)
+        public void UpdateConcertHall(int id, string Cname, string ticketType, int totalOfPpl, int AddressId)
         {
             dal.UpdateConcertHallDB(id, Cname, ticketType, totalOfPpl, AddressId);
         }
 
-        public void DeletekoncertHall(int id)
+        public void DeleteConcertHall(int id)
         {
             dal.DeleteConcertHallDB(id);
         }
 
-        public object GetkoncertHallDB()
+        public object GetConcertHall()
         {
             return dal.GetConcertHallDB();
         }
 
         //EventsTable
-        public void AddEventsDB(string EventName, DateTime eventDate, string groupType, string custtype)
+        public void AddEvents(string EventName, DateTime eventDate, string groupType, string custtype)
         {
             dal.AddEventsDB(EventName, eventDate, groupType, custtype);
         }
 
-        public void UpdateEventsDB(int id, string EventName, DateTime eventDate, string groupType, string custtype)
+        public void UpdateEvents(int id, string EventName, DateTime eventDate, string groupType, string custtype)
         {
             dal.UpdateEventsDB(id, EventName, eventDate, groupType, custtype);
         }
 
-        public void DeleteEventsDB(int id)
+        public void DeleteEvents(int id)
         {
             dal.DeleteEventsDB(id);
         }
 
-        public object GetEventsDB()
+        public object GetEvents()
         {
             return dal.GetEventsDB();
         }
 
         //Events_ConcertHalltable
-        public void AddEvents_ConcertHallDB(string eventName, DateTime eventDate, int totalOfPpl, string ticketType)
+        public void AddEvents_ConcertHall(string eventName, DateTime eventDate, int totalOfPpl, string ticketType)
         {
             dal.AddEvents_ConcertHallDB(eventName, eventDate, totalOfPpl, ticketType);
         }
 
-        public void UpdateEvents_ConcertHallDB(int id, string eventName, DateTime eventDate, int totalOfPpl, string ticketType)
+        public void UpdateEvents_ConcertHall(int id, string eventName, DateTime eventDate, int totalOfPpl, string ticketType)
         {
             dal.UpdateEvents_ConcertHallDB(id, eventName, eventDate, totalOfPpl, ticketType);
         }
 
-        public void DeleteEvents_ConcertHallDB(int id)
+        public void DeleteEvents_ConcertHall(int id)
         {
             dal.DeleteEvents_ConcertHallDB(id);
         }
 
-        public object GetEvents_ConcertHallDB()
+        public object GetEvents_ConcertHall()
         {
             return dal.GetEvents_ConcertHallDB();
         }
 
+        //Event_Custgroup
 
+        public void AddEvents_CustGroup(string eventName, string groupName, int groupId, int ticketId)
+        {
+            dal.AddEvents_CustomergroupDB(eventName, groupName, groupId, ticketId);
+        }
+
+        public void UpdateEvents_CustGroup(int id, string eventName, string groupName, int groupId, int ticketId)
+        {
+            dal.UpdateEvents_CustomergroupDB(id, eventName, groupName, groupId, ticketId);
+        }
+
+        public void DeleteEvents_CustGroup(int id)
+        {
+            dal.DeleteEvents_CustomergroupDB(id);
+        }
+
+        public object GetEvents_CustGroup()
+        {
+            return dal.GetEvents_CustomergroupDB();
+        }
     }
 }
